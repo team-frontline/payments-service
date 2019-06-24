@@ -7,6 +7,8 @@ public class Item {
     private String customerId;
     private String soldQuantity;
 
+    //TODO: make quantity a int
+
     public Integer getId() {
         return id;
     }

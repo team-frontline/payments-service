@@ -14,9 +14,10 @@ public class PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    public Payment getPaymentById(int id){
+    public Payment getPaymentById(int id) {
         return paymentRepository.getPaymentById(id);
     }
+
     public List<Payment> getAllPayments() {
         return paymentRepository.findAll();
     }
@@ -34,13 +35,8 @@ public class PaymentService {
         return itemIdList;
     }
 
-    public Payment addPayment(String customerId, String itemId, Integer quantity, double payment) {
-        Payment paymentRecord = new Payment();
-        paymentRecord.setCustomerId(customerId);
-        paymentRecord.setItemId(itemId);
-        paymentRecord.setQuantity(quantity);
-        paymentRecord.setPayment(payment);
-        return paymentRepository.saveAndFlush(paymentRecord);
+    public Payment addPayment(Payment payment) {
+        return paymentRepository.saveAndFlush(payment);
     }
 
     public Payment deletePayment(int id) {

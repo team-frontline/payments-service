@@ -19,9 +19,13 @@ public class MainController {
     private ItemService itemService;
 
     @PostMapping("/create")
-    public Payment create(@RequestParam String customerId, String itemId, int quantity, double price) {
+    public Payment create(@RequestBody Payment payment) {
+        /*TODO:
+         * Check price is correct. For that, We have to use itemServices.
+         * Call the Item Service API to get the values and calculate
+         */
 //        double price = itemService.getItemTotalPrice(itemId, quantity);
-        return paymentService.addPayment(customerId, itemId, quantity, price);
+        return paymentService.addPayment(payment);
     }
 
     @GetMapping(value = "/items-by-customerid/{customerId}")
