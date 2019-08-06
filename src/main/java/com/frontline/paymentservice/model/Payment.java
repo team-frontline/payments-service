@@ -11,10 +11,18 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String customerId;
     private String itemId;
     private Integer quantity;
+    private double price;
     private double payment;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;
@@ -22,14 +30,6 @@ public class Payment {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
     }
 
     public String getItemId() {

@@ -1,28 +1,46 @@
 package com.frontline.paymentservice.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Item {
-    private Integer id;
-    private String itemId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column(unique = true)
+    private String itemID;
+
     private String itemName;
-    private String customerId;
-    private String soldQuantity;
+    private int quantity;
+    private double price;
 
-    //TODO: make quantity a int
+    private Integer numberOfRaters;
+    private Integer rating;
 
-    public Integer getId() {
+    public Item(){}
+
+    public Item(String itemID, String itemName, int quantity, double price){
+        this.itemID =itemID;
+        this.itemName=itemName;
+        this.quantity=quantity;
+        this.price=price;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getItemId() {
-        return itemId;
+    public String getItemID() {
+        return itemID;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
+    public void setItemID(String itemID) {
+        this.itemID = itemID;
     }
 
     public String getItemName() {
@@ -33,19 +51,35 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public String getSoldQuantity() {
-        return soldQuantity;
+    public double getPrice() {
+        return price;
     }
 
-    public void setSoldQuantity(String soldQuantity) {
-        this.soldQuantity = soldQuantity;
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Integer getNumberOfRaters() {
+        return numberOfRaters;
+    }
+
+    public void setNumberOfRaters(Integer numberOfRaters) {
+        this.numberOfRaters = numberOfRaters;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }

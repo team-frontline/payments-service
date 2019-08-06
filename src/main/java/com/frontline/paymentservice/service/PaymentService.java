@@ -6,7 +6,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,20 +21,11 @@ public class PaymentService {
         return paymentRepository.findAll();
     }
 
-    public List<Payment> getByCustomerId(String customerId) {
-        return paymentRepository.findAllByCustomerId(customerId);
-    }
-
-    public List<String> getItemIdsByUserId(String customerId) {
-        List<Payment> paymentList = paymentRepository.findAllByCustomerId(customerId);
-        List<String> itemIdList = new ArrayList<>(paymentList.size());
-        for (Payment payment : paymentList) {
-            itemIdList.add(payment.getItemId());
-        }
-        return itemIdList;
-    }
 
     public Payment addPayment(Payment payment) {
+        double price = payment.getPrice();
+        int quantity = payment.getQuantity();
+        payment.setPayment(price * quantity);
         return paymentRepository.saveAndFlush(payment);
     }
 

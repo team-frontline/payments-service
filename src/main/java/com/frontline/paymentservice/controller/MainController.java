@@ -4,6 +4,7 @@ import com.frontline.paymentservice.model.Item;
 import com.frontline.paymentservice.model.Payment;
 import com.frontline.paymentservice.service.ItemService;
 import com.frontline.paymentservice.service.PaymentService;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,20 +20,14 @@ public class MainController {
     private ItemService itemService;
 
     @PostMapping("/create")
-    public Payment create(@RequestBody Payment payment) {
-        /*TODO:
-         * Check price is correct. For that, We have to use itemServices.
-         * Call the Item Service API to get the values and calculate
-         */
+    public Payment create(@RequestBody Payment payment) throws JSONException {
 //        double price = itemService.getItemTotalPrice(itemId, quantity);
+        Item item = new Item();
+        item.setItemID(payment.getItemId());
+        item.setQuantity(payment.getQuantity());
+        item.setPrice(payment.getPrice());
+        itemService.decreaseQuantity(item);
         return paymentService.addPayment(payment);
-    }
-
-    @GetMapping(value = "/items-by-customerid/{customerId}")
-    public List<Item> getItemsByCustomerId(@PathVariable String customerId) {
-        List<String> itemIds = paymentService.getItemIdsByUserId(customerId);
-        List<Item> items = itemService.getItems(itemIds);
-        return items;
     }
 
     @GetMapping(value = "/{paymentId}")
@@ -54,10 +49,5 @@ public class MainController {
     @GetMapping(value = "/all")
     public List<Payment> getAllPayments() {
         return paymentService.getAllPayments();
-    }
-
-    @GetMapping(value = "/get-by-cutsomerid/{customerId}")
-    public List<Payment> getPaymentsByCustomerId(@PathVariable String customerId) {
-        return paymentService.getByCustomerId(customerId);
     }
 }
