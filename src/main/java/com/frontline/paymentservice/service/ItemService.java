@@ -18,7 +18,6 @@ public class ItemService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         JSONObject itemObject = new JSONObject();
         itemObject.put("quantity", itemToUpdate.getQuantity());
-//        System.out.println(itemObject.toString());
 
         HttpEntity<String> request = new HttpEntity<String>(itemObject.toString(), headers);
 
